@@ -32,3 +32,13 @@ Inside DuckDB, you can execute the file `tpc-h.sql`, which loads all `.parquet` 
 ```bash
 .read tpc-h.sql
 ```
+
+# Performance Troubleshooting
+With a scale factor of 100, the `.parquet` files are already more than 40 GB in size. This means that DuckDB has to spill a lot during the query execution to the file system.
+
+You can speed up the whole process by putting the folder `.tmp` to a different physical drive by changing the configuration option `temp_directory`:
+
+```bash
+set temp_directory='/media/klaus/Data 3';
+select current_setting('temp_directory');
+```
